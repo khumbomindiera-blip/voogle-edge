@@ -1,42 +1,42 @@
 {
-  "team_id": "VOOGLEEDGE2026",
+  "team_id": "voogle-edge",
   "domain": "agriculture",
-  "language_scope": ["en", "ny"],
+  "language_scope": ["en","ny"],
   "african_alpha_claim": true,
   "budget_laptop_claim": true,
 
   "submitter": {
     "name": "Khumbo Mindiera",
-    "email": "YOUR_EMAIL_HERE",
+    "email": "YOUR_EMAIL",
     "github_handle": "khumbomindiera-blip"
   },
 
   "cross_disciplinary_pairing": {
     "discipline": "agriculture",
     "load_bearing": true,
-    "description": "Offline multilingual agricultural intelligence platform for rural farmers."
+    "description": "Offline agricultural intelligence for rural farmers using local AI and multilingual knowledge systems."
   },
 
   "test_prompts": [
     {
       "prompt_id": "tp_001",
-      "prompt": "A farmer in Mzimba reports that maize leaves are turning yellow during the growing season. What are the possible causes and recommended actions?"
+      "prompt": "A farmer in Mzimba notices maize leaves being eaten rapidly. What are the possible causes and how should the farmer respond?"
     },
     {
       "prompt_id": "tp_002",
-      "prompt": "How can smallholder farmers reduce the impact of drought on maize production using climate-smart agricultural practices?"
+      "prompt": "What are the recommended fertilizer application practices for maize production in Malawi?"
     }
   ],
 
   "model": {
-    "name": "Gemma-3-4B",
+    "name": "Gemma3-4B",
     "runtime": "llama.cpp",
-    "quantization": "GGUF Q4_K_M",
+    "quantization": "GGUF",
     "parameters_estimate": "4B",
     "packaging": "binary_bundle"
   },
 
   "_runtime": {
-    "model_path": "model/gemma-3-4b-q4_k_m.gguf"
+    "model_path": "model/gemma3-4b.gguf"
   }
 }
