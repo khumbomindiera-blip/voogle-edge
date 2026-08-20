@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Voogle Edge</title>
+
+<style>
+
+body{
+    font-family:Arial;
+    max-width:800px;
+    margin:40px auto;
+    transition:0.3s;
+}
+
+textarea{
+    width:100%;
+    height:100px;
+}
+
+input,select{
+    width:100%;
+    padding:10px;
+    margin-top:5px;
+}
+
+button{
+    padding:10px 20px;
+    background:#2e7d32;
+    color:white;
+    border:none;
+    cursor:pointer;
+    margin-top:5px;
+}
+
+button:hover{
+    background:#1b5e20;
+}
+
+#answer{
+    margin-top:20px;
+    white-space:pre-wrap;
+    padding:15px;
+    background:#f5f5f5;
+    border-radius:5px;
+}
+
+#reportStatus{
+    margin-top:10px;
+    color:green;
+    font-weight:bold;
+}
+
+.section{
+    margin-top:40px;
+    padding-top:20px;
+    border-top:1px solid #ddd;
+}
+
+.dyslexia{
+    font-family: OpenDyslexic, Arial, sans-serif;
+    font-size:20px;
+    line-height:1.8;
+}
+
+.dark{
+    background:#121212;
+    color:white;
+}
+
+.dark textarea,
+.dark input,
+.dark select{
+    background:#333;
+    color:white;
+}
+
+.dark #answer{
+    background:#222;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>🌱 Voogle Edge</h1>
+
+<p id="subtitle">
+Offline AI Agriculture Assistant
+</p>
+
+<label>
+<b id="languageLabel">
+Language
+</b>
+</label>
+
+<select id="language" onchange="updateLanguage()">
+
+<option value="English">
+English
+</option>
+
+<option value="Chichewa">
+Chichewa
+</option>
+
+</select>
+
+<br><br>
+
+<div class="section">
+
+<h3 id="accessibilityTitle">
+♿ Accessibility
+</h3>
+
+<label>
+
+<input
+type="checkbox"
+onclick="toggleDyslexia()">
+
+<span id="dyslexiaLabel">
+Dyslexia Friendly Mode
+</span>
+
+</label>
+
+<br><br>
+
+<label>
+
+<input
+type="checkbox"
+onclick="toggleDarkMode()">
+
+<span id="darkModeLabel">
+Dark Mode
+</span>
+
+</label>
+
+</div>
+
+<br>
+
+<h3 id="askTitle">
+Ask Voogle
+</h3>
+
+<textarea
+id="question"
+placeholder="Ask about farming..."></textarea>
+
+<br><br>
+
+<button
+id="askButton"
+onclick="ask()">
+Ask Voogle
+</button>
+
+<button
+id="readButton"
+onclick="readAnswer()">
+🔊 Read Answer
+</button>
+
+<div id="answer"></div>
+
+<div class="section">
+
+<h3 id="reportTitle">
+📢 Report a Community Problem
+</h3>
+
+<p id="reportDescription">
+Report issues affecting farmers in your area.
+</p>
+
+<label>
+<b id="locationLabel">
+Location
+</b>
+</label>
+
+<input
+type="text"
+id="location"
+placeholder="e.g. Dedza Boma">
+
+<br><br>
+
+<label>
+<b id="categoryLabel">
+Category
+</b>
+</label>
+
+<select id="category">
+
+<option>Pest Outbreak</option>
+<option>Seed Shortage</option>
+<option>Fertilizer Shortage</option>
+<option>Road Damage</option>
+<option>Flood Damage</option>
+<option>Market Disruption</option>
+<option>Other</option>
+
+</select>
+
+<br><br>
+
+<label>
+<b id="descriptionLabel">
+Description
+</b>
+</label>
+
+<textarea
+id="reportBox"
+placeholder="Describe the problem..."></textarea>
+
+<br><br>
+
+<button
+id="reportButton"
+onclick="submitReport()">
+Report Problem
+</button>
+
+<div id="reportStatus"></div>
+
+</div>
+
+<script>
+
+function toggleDyslexia(){
+document.body.classList.toggle("dyslexia");
+}
+
+function toggleDarkMode(){
+document.body.classList.toggle("dark");
+}
+
+function readAnswer(){
+
+let answer =
+document.getElementById("answer").innerText;
+
+if(answer.trim()==="") return;
+
+let language =
+document.getElementById("language").value;
+
+let speech =
+new SpeechSynthesisUtterance(answer);
+
+if(language==="Chichewa"){
+speech.lang = "en-US";
+}
+else{
+speech.lang = "en-US";
+}
+
+speech.rate = 1;
+speech.pitch = 1;
+
+speechSynthesis.speak(speech);
+
+}
+
+function updateLanguage(){
+
+let lang =
+document.getElementById("language").value;
+
+let category =
+document.getElementById("category");
+
+if(lang==="Chichewa"){
+
+document.getElementById("subtitle").innerHTML =
+"Wothandizira Ulimi wa AI Wogwira Ntchito Popanda Intaneti";
+
+document.getElementById("languageLabel").innerHTML =
+"Chilankhulo";
+
+document.getElementById("askTitle").innerHTML =
+"Funsani Voogle";
+
+document.getElementById("askButton").innerHTML =
+"Funsani Voogle";
+
+document.getElementById("question").placeholder =
+"Funsani za ulimi...";
+
+document.getElementById("reportTitle").innerHTML =
+"📢 Nenani Vuto la M'mudzi";
+
+document.getElementById("reportDescription").innerHTML =
+"Fotokozani mavuto omwe akukhudza alimi m'dera lanu.";
+
+document.getElementById("locationLabel").innerHTML =
+"Malo";
+
+document.getElementById("location").placeholder =
+"Mwachitsanzo: Dedza Boma";
+
+document.getElementById("categoryLabel").innerHTML =
+"Gulu la Vuto";
+
+document.getElementById("descriptionLabel").innerHTML =
+"Kufotokozera";
+
+document.getElementById("reportBox").placeholder =
+"Fotokozani vutolo...";
+
+document.getElementById("reportButton").innerHTML =
+"Nenani Vuto";
+
+document.getElementById("accessibilityTitle").innerHTML =
+"♿ Zothandizira Anthu Onse";
+
+document.getElementById("dyslexiaLabel").innerHTML =
+"Kuwerenga Mosavuta";
+
+document.getElementById("darkModeLabel").innerHTML =
+"Mdima Mode";
+
+document.getElementById("readButton").innerHTML =
+"🔊 Werengani Yankho";
+
+category.innerHTML = `
+<option>Kufalikira kwa Tizilombo</option>
+<option>Kusowa kwa Mbewu</option>
+<option>Kusowa kwa Feteleza</option>
+<option>Msewu Wowonongeka</option>
+<option>Kuwonongeka ndi Madzi Osefukira</option>
+<option>Kusokonekera kwa Msika</option>
+<option>Zina</option>
+`;
+
+}
+else{
+
+document.getElementById("subtitle").innerHTML =
+"Offline AI Agriculture Assistant";
+
+document.getElementById("languageLabel").innerHTML =
+"Language";
+
+document.getElementById("askTitle").innerHTML =
+"Ask Voogle";
+
+document.getElementById("askButton").innerHTML =
+"Ask Voogle";
+
+document.getElementById("question").placeholder =
+"Ask about farming...";
+
+document.getElementById("reportTitle").innerHTML =
+"📢 Report a Community Problem";
+
+document.getElementById("reportDescription").innerHTML =
+"Report issues affecting farmers in your area.";
+
+document.getElementById("locationLabel").innerHTML =
+"Location";
+
+document.getElementById("location").placeholder =
+"e.g. Dedza Boma";
+
+document.getElementById("categoryLabel").innerHTML =
+"Category";
+
+document.getElementById("descriptionLabel").innerHTML =
+"Description";
+
+document.getElementById("reportBox").placeholder =
+"Describe the problem...";
+
+document.getElementById("reportButton").innerHTML =
+"Report Problem";
+
+document.getElementById("accessibilityTitle").innerHTML =
+"♿ Accessibility";
+
+document.getElementById("dyslexiaLabel").innerHTML =
+"Dyslexia Friendly Mode";
+
+document.getElementById("darkModeLabel").innerHTML =
+"Dark Mode";
+
+document.getElementById("readButton").innerHTML =
+"🔊 Read Answer";
+
+category.innerHTML = `
+<option>Pest Outbreak</option>
+<option>Seed Shortage</option>
+<option>Fertilizer Shortage</option>
+<option>Road Damage</option>
+<option>Flood Damage</option>
+<option>Market Disruption</option>
+<option>Other</option>
+`;
+
+}
+
+}
+
+async function ask(){
+
+let question =
+document.getElementById("question").value;
+
+let language =
+document.getElementById("language").value;
+
+document.getElementById("answer").innerHTML =
+"Thinking...";
+
+let response =
+await fetch("/ask",{
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify({
+
+question:question,
+language:language
+
+})
+
+});
+
+let data =
+await response.json();
+
+document.getElementById("answer").innerHTML =
+data.answer;
+
+}
+
+async function submitReport(){
+
+let location =
+document.getElementById("location").value;
+
+let category =
+document.getElementById("category").value;
+
+let report =
+document.getElementById("reportBox").value;
+
+if(report.trim()===""){
+
+alert("Please enter a report.");
+return;
+
+}
+
+let response =
+await fetch("/report",{
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify({
+
+location:location,
+category:category,
+report:report
+
+})
+
+});
+
+let data =
+await response.json();
+
+document.getElementById("reportStatus").innerHTML =
+data.message;
+
+document.getElementById("reportBox").value = "";
+
+}
+
+</script>
+
+</body>
+</html>

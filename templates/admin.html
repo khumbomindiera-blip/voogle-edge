@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Voogle Dashboard</title>
+
+<style>
+
+body{
+font-family:Arial;
+max-width:900px;
+margin:40px auto;
+}
+
+.report{
+padding:15px;
+margin-bottom:20px;
+background:#f5f5f5;
+border-radius:8px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>📊 Voogle Edge Dashboard</h1>
+
+<h3>Community Reports</h3>
+
+{% for report in reports %}
+
+<div class="report">
+
+<p>
+<b>Location:</b>
+{{ report.location }}
+</p>
+
+<p>
+<b>Category:</b>
+{{ report.category }}
+</p>
+
+<p>
+<b>Report:</b>
+{{ report.report }}
+</p>
+
+</div>
+
+{% endfor %}
+
+</body>
+
+</html>
